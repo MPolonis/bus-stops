@@ -9,6 +9,7 @@ const sortOrder = computed(() => store.state.sortOrderForAllStops);
 const onSortClick = () => store.commit('toggleSortOrderForAllStops');
 const searchValue = ref('');
 const isSearchValueEmpty = computed(() => searchValue.value === '');
+const isSearchValueFilled = computed(() => searchValue.value !== '');
 
 
 function filterStops(newValue: string) {
@@ -18,8 +19,9 @@ function filterStops(newValue: string) {
 </script>
 <template>
   <div class="container p-0">
-    <div class="input-container">
+    <div class="input-container search-input">
       <input v-model="searchValue" type="text" placeholder="Search..." class="input-search" />
+      <label class="search-label" v-if="isSearchValueFilled" for="searchValue">Search</label>
       <img v-if="isSearchValueEmpty" class="icon-search" :src="searchIcon" alt="search" />
     </div>
     <div class="list-item d-flex align-items-center fw-semibold ps-3">
@@ -67,4 +69,23 @@ function filterStops(newValue: string) {
 .sort-desc {
   transform: scaleY(-1);
 }
+
+.search-input {
+  position: relative;
+}
+
+.search-label {
+  position: absolute;
+  top: 0px;
+  left: 20px;
+  z-index: 1;
+  background-color: #fff;
+  padding: 0 5px;
+  font-size: 10px;
+  font-weight: 400;
+  font-family: 'Inter', sans-serif;
+  color: #63666E;
+}
+
+
 </style>
