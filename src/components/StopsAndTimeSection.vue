@@ -23,8 +23,7 @@ import TimeList from './TimeList.vue';
   display: flex;
   flex: 1 0 0;
   flex-direction: column;
-  margin-top: 10px;
-  border-radius: 8px;
+  border-radius: 4px;
 
   &:not(:last-child) {
     margin-right: 21px;

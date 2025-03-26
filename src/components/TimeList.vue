@@ -10,7 +10,7 @@ const stopTimes = computed(() => store.getters.getStopTimesData(route.params.sto
 
 </script>
 <template>
-  <div class="container-schedule px-0">
+  <div class="container-schedule  px-0">
     <div v-if="!route.params.line" class="d-flex align-items-center justify-content-center empty-list">
       Please select the bus line first
     </div>
