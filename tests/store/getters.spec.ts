@@ -5,6 +5,8 @@ import {
   getStopsByLine,
   getStopTimesData,
 } from "@/store/getters"
+import { State, Stop } from "@/types"
+
 
 describe("Store Getters", () => {
   const mockStopsData = [
@@ -17,10 +19,15 @@ describe("Store Getters", () => {
     { line: 106, stop: "Skotniki", order: 12, time: "12:41" },
   ]
 
+  const mockState: State = {
+    stopsData: mockStopsData,
+    isLoading: false,
+    error: null,
+  }
+
   describe("getStopsData", () => {
     it("returns unique sorted stops", () => {
-      const state = { stopsData: mockStopsData }
-      expect(getStopsData(state)).toEqual([
+      expect(getStopsData(mockState)).toEqual([
         "Bogucianka",
         "Chełmska",
         "Łobzów SKA",
@@ -33,29 +40,25 @@ describe("Store Getters", () => {
 
   describe("getLinesData", () => {
     it("returns unique sorted lines", () => {
-      const state = { stopsData: mockStopsData }
-      expect(getLinesData(state)).toEqual([102, 106, 111, 112])
+      expect(getLinesData(mockState)).toEqual([102, 106, 111, 112])
     })
   })
 
   describe("getStopsByLine", () => {
     it("returns stops for specific line in correct order", () => {
-      const state = { stopsData: mockStopsData }
-      const getStops = getStopsByLine(state)
+      const getStops = getStopsByLine(mockState)
       expect(getStops(102)).toEqual(["Łobzów SKA", "Piastowska", "Chełmska"])
     })
   })
 
   describe("getStopTimesData", () => {
     it("returns sorted unique times for specific stop", () => {
-      const state = { stopsData: mockStopsData }
-      const getTimes = getStopTimesData(state)
+      const getTimes = getStopTimesData(mockState)
       expect(getTimes("Chełmska")).toEqual(["14:15", "19:31"])
     })
 
     it("returns empty array for non-existent stop", () => {
-      const state = { stopsData: mockStopsData }
-      const getTimes = getStopTimesData(state)
+      const getTimes = getStopTimesData(mockState)
       expect(getTimes("NonExistentStop")).toEqual([])
     })
   })
