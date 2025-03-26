@@ -5,6 +5,8 @@ import sortIcon from '../assets/sort.svg';
 import searchIcon from '../assets/search.svg';
 const store = useStore();
 const allStops = computed(() => store.getters.getStopsData);
+const sortOrder = computed(() => store.state.sortOrderForAllStops);
+const onSortClick = () => store.commit('toggleSortOrderForAllStops');
 const searchValue = ref('');
 const isSearchValueEmpty = computed(() => searchValue.value === '');
 
@@ -22,7 +24,7 @@ function filterStops(newValue: string) {
     </div>
     <div class="list-item d-flex align-items-center fw-semibold ps-3">
       Bus Stops
-      <img class="ps-1" :src="sortIcon" alt="sort" />
+      <img class="ps-1 sort-icon" :class="{ 'sort-desc': sortOrder === 'desc' }" :src="sortIcon" alt="sort" @click="onSortClick" />
     </div>
     <ul class="list-group list-group-flush">
       <li v-for="stop in filterStops(searchValue)" :key="stop" role="button"
@@ -54,5 +56,15 @@ function filterStops(newValue: string) {
   font-size: 12px;
   font-weight: 400;
   padding: 12px 16px;
+}
+
+.sort-icon {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  transform-origin: center;
+}
+
+.sort-desc {
+  transform: scaleY(-1);
 }
 </style>

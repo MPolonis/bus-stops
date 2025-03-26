@@ -23,6 +23,8 @@ describe("Store Getters", () => {
     stopsData: mockStopsData,
     isLoading: false,
     error: null,
+    sortOrderOfStopsForLine: 'asc',
+    sortOrderForAllStops: 'asc'
   }
 
   describe("getStopsData", () => {

@@ -3,7 +3,7 @@ import { State } from "@/types"
 export const getStopsData = (state: State) => {
   const allStops = state.stopsData.map((stop) => stop.stop)
   const sortedStops = [...new Set(allStops)].sort((a, b) => a.localeCompare(b))
-  return sortedStops
+  return state.sortOrderForAllStops === 'asc' ? sortedStops : sortedStops.reverse()
 }
 export const getLinesData = (state: State): number[] => {
   const lines = state.stopsData.map((stop) => stop.line)
@@ -14,7 +14,8 @@ export const getLinesData = (state: State): number[] => {
 export const getStopsByLine = (state: State) => (line: number) => {
   const stops = state.stopsData.filter((stop) => stop.line === line)
   const sortedStops = stops.sort((a, b) => a.order - b.order)
-  return [...new Set(sortedStops.map((stop) => stop.stop))]
+  const uniqueStops = [...new Set(sortedStops.map((stop) => stop.stop))]
+  return state.sortOrderOfStopsForLine === 'asc' ? uniqueStops : uniqueStops.reverse()
 }
 
 export const getStopTimesData = (state: State) => (stop: string) => {

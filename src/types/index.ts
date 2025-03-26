@@ -8,11 +8,15 @@ export type Stop = {
 export type State = {
   stopsData: Stop[],
   isLoading: boolean,
-  error: string | null
+  error: string | null,
+  sortOrderOfStopsForLine: 'asc' | 'desc',
+  sortOrderForAllStops: 'asc' | 'desc'
 }
 
 export const state: State = {
   stopsData: [],
   isLoading: false,
-  error: null
+  error: null,
+  sortOrderOfStopsForLine: 'asc',
+  sortOrderForAllStops: 'asc'
 }
